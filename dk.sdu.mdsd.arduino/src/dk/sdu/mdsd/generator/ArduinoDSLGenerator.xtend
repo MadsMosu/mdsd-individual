@@ -292,8 +292,8 @@ class ArduinoDSLGenerator extends AbstractGenerator  {
 		«ENDFOR»
 		«FOR variable : componentReadingNameSet.entrySet»
 
-			for(int reading = 0; reading <= sizeof(«variable.key»)/sizeof(float); reading++) {
-				«variable.key»[reading] = 0;
+			for(int reading = 0; reading <= sizeof(«variable.key»Readings)/sizeof(float); reading++) {
+				«variable.key»Readings[reading] = 0;
 			}
 
 		«ENDFOR»
@@ -543,7 +543,7 @@ while (network.available()) {
 			AndOr: exp.left.generateExpressions +' '+ exp.operator.generateBooleanOperator +' '+ exp.right.generateExpressions
 			Comparison: exp.left.generateExpressions +' '+ exp.operator.generateCompareOperator +' '+ exp.right.generateExpressions
 			BooleanExpressionBlock: '('+exp.block.generateExpressions+')'
-//			BooleanLiteral: Boolean.toString(exp.value)
+			BooleanLiteral: Boolean.toString(exp.value)
 			Attribute: exp.component.name +componentIDs.get(exp.name.name + exp.component.name) + "Value"
 			Delta: exp.attr.component.name +componentIDs.get(exp.attr.name.name + exp.attr.component.name) + "Value"
 			VariableDeclaration: exp.name
@@ -568,6 +568,7 @@ while (network.available()) {
 					return Integer.toString(exp.intVal)
 				}
 			}
+			BooleanLiteral: Boolean.toString(exp.value)
 			Attribute: exp.component.name +componentIDs.get(exp.name.name + exp.component.name) + "Value"
 			Delta: exp.attr.component.name +componentIDs.get(exp.attr.name.name + exp.attr.component.name) + "Value"
 			VariableDeclaration: exp.name
